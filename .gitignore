@@ -1,0 +1,27 @@
+﻿# dados privados
+data/private/
+faces/
+embeddings/
+consent/
+checkpoints/
+*.db
+*.sqlite
+
+# pesos e checkpoints
+*.pt
+*.pth
+*.ckpt
+*.onnx
+*.safetensors
+*.bin
+
+# datasets publicos (so script de download)
+data/lfw/
+data/raw/
+
+# segredos e ambiente
+.env
+.venv/
+__pycache__/
+.ipynb_checkpoints/
+.DS_Store
