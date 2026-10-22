@@ -1,4 +1,3 @@
-﻿# dados privados
 data/private/
 faces/
 embeddings/
@@ -25,3 +24,12 @@ data/raw/
 __pycache__/
 .ipynb_checkpoints/
 .DS_Store
+face_private/
+# imagens e embeddings
+*.jpg
+*.jpeg
+*.png
+!docs/figures/*.png
+*.npy
+*.npz
+venv/
