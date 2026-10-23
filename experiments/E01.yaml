@@ -1,0 +1,18 @@
+id: E01
+hipotese: >
+  O FaceNet pre-treinado identifica bem as pessoas conhecidas (rank-1
+  alto), mas aceita desconhecidas com mais frequencia do que o erro de
+  verificacao do LFW sugere, porque a decisao aberta compara a foto com 50
+  prototipos e basta um deles passar do limiar.
+refutacao: >
+  Cai se o FAR aberto (desconhecida aceita por qualquer prototipo) for
+  aproximadamente igual ao FAR por par no mesmo limiar.
+dataset: LFW, data/splits/lfw_split.json
+modelo: FaceNet (InceptionResnetV1, vggface2)
+estrategia: baseline pre-treinado, sem fine-tuning
+classificador: prototipo (media normalizada das 5 imagens de cadastro)
+metricas: [rank1, FAR, FRR, EER]
+hiperparametros:
+  seed: 42
+resultado: {}
+interpretacao: ""

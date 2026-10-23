@@ -1,0 +1,16 @@
+id: E02
+hipotese: >
+  O ArcFace pre-treinado tem EER menor que o FaceNet (E01) no mesmo split,
+  porque a perda de margem angular afasta classes diferentes. O rank-1 sera
+  parecido nos dois, porque com 50 pessoas ele satura.
+refutacao: >
+  Cai se o EER do ArcFace for maior ou igual ao do FaceNet.
+dataset: LFW, data/splits/lfw_split.json
+modelo: ArcFace (InsightFace buffalo_l)
+estrategia: baseline pre-treinado, sem fine-tuning
+classificador: prototipo (media normalizada das 5 imagens de cadastro)
+metricas: [rank1, FAR, FRR, EER]
+hiperparametros:
+  seed: 42
+resultado: {}
+interpretacao: ""
