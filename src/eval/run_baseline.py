@@ -28,26 +28,33 @@ ALIGNED = ROOT / "data" / "lfw" / "aligned"
 EMB = ROOT / "data" / "embeddings"
 
 
-def extrator(modelo):
-    from src.models.embedder import arcface_embedding, facenet_embedding
+def extrator(modelo, ckpt=None):
+    from src.models.embedder import _facenet_model, arcface_embedding, facenet_embedding
 
     if modelo == "facenet":
+        if ckpt:
+            import torch
+
+            m = _facenet_model()  # instância em cache, a mesma que o facenet_embedding usa
+            m.load_state_dict(torch.load(ckpt, map_location="cpu", weights_only=False)["modelo"])
+            m.eval()
         return lambda bgr: facenet_embedding(cv2.cvtColor(bgr, cv2.COLOR_BGR2RGB))
     return arcface_embedding
 
 
-def embeddings_de(modelo, rels):
+def embeddings_de(modelo, rels, ckpt=None):
     """Embeddings das imagens alinhadas, com cache em data/embeddings (ignorada pelo Git)."""
     EMB.mkdir(parents=True, exist_ok=True)
-    cache = EMB / f"lfw_{modelo}.npz"
+    tag = f"_{Path(ckpt).stem}" if ckpt else ""
+    cache = EMB / f"lfw_{modelo}{tag}.npz"
     if cache.exists():
         dados = np.load(cache, allow_pickle=False)
         idx = {r: i for i, r in enumerate(dados["rels"])}
         if all(r in idx for r in rels):
             return dados["emb"][[idx[r] for r in rels]]
-    f = extrator(modelo)
+    f = extrator(modelo, ckpt)
     embs = []
-    for r in tqdm(rels, desc=f"embeddings {modelo}"):
+    for r in tqdm(rels, desc=f"embeddings {modelo}{tag}"):
         img = cv2.imread(str(ALIGNED / r))
         if img is None:
             raise FileNotFoundError(f"imagem alinhada não encontrada: {r}")
@@ -61,9 +68,12 @@ def main():
     p = argparse.ArgumentParser()
     p.add_argument("--modelo", choices=["facenet", "arcface"], required=True)
     p.add_argument("--metrica", choices=["cosseno", "euclidiana"], default="cosseno")
+    p.add_argument("--ckpt", default=None, help="checkpoint do fine-tuning (só FaceNet)")
     p.add_argument("--teste", action="store_true",
                    help="avalia no TESTE (uma única vez, no modelo já escolhido)")
     a = p.parse_args()
+    if a.ckpt and a.modelo != "facenet":
+        raise SystemExit("--ckpt só vale para o FaceNet.")
     fixar_seed(42)
 
     s = json.loads(SPLIT.read_text(encoding="utf-8"))
@@ -77,7 +87,7 @@ def main():
 
     # Calcula embeddings de tudo (inclusive teste); o teste só é AVALIADO com --teste.
     todos = sorted({f for fs in enroll.values() for f in fs} | {f for f, _ in val + test})
-    emb = dict(zip(todos, embeddings_de(a.modelo, todos)))
+    emb = dict(zip(todos, embeddings_de(a.modelo, todos, a.ckpt)))
 
     nomes, protos = prototipos(
         {n: np.stack([emb[f] for f in enroll[n]]) for n in nomes_known}
@@ -88,7 +98,7 @@ def main():
         y = np.array([r for _, r in pares])
         return similaridades(X, protos, a.metrica), y
 
-    exp = f"{a.modelo}_{a.metrica}"
+    exp = f"{a.modelo}_{a.metrica}" + (f"_ft_{Path(a.ckpt).stem}" if a.ckpt else "")
     figs = ROOT / "docs" / "figures"
 
     sv, yv = avaliar(val)
@@ -108,8 +118,11 @@ def main():
 
     registrar(
         f"{exp}_{'TESTE' if a.teste else 'val'}",
-        config={"modelo": a.modelo, "metrica": a.metrica, "k": len(nomes),
-                "n_cadastro": len(enroll[nomes[0]]), "pesos": "pré-treinados, sem fine-tuning"},
+        config={
+            "modelo": a.modelo, "metrica": a.metrica, "k": len(nomes),
+            "n_cadastro": len(enroll[nomes[0]]),
+            "pesos": f"fine-tuning: {Path(a.ckpt).name}" if a.ckpt else "pré-treinados, sem fine-tuning",
+        },
         resultados=resultados, seed=42,
     )
 
