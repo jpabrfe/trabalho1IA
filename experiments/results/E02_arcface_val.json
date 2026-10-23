@@ -1,0 +1,27 @@
+{
+  "threshold": 0.3984318147092801,
+  "accuracy": 0.9508997429305912,
+  "f1_macro": 0.858662656397039,
+  "f1_ponderado": 0.955025124314139,
+  "far": 0.04858685296919657,
+  "frr": 0.048582995951417005,
+  "id_errada": 0.002699055330634278,
+  "rank1": 0.9770580296896086,
+  "roc_auc": 0.9862638740143712,
+  "experiment": "E02_arcface",
+  "split": "val",
+  "EER": 0.04858492446030679,
+  "threshold_euclidean": 1.0968757316038311,
+  "nan_known": 0,
+  "nan_impostor": 0,
+  "enroll_incomplete": {},
+  "euclid_sanity_max_dev": 4.001243780749064e-12,
+  "euclid_same_ranking": true,
+  "confusion_known_vs_unknown": {
+    "known_accepted_correct_id": 703,
+    "known_accepted_wrong_id": 2,
+    "known_rejected": 36,
+    "impostor_accepted": 153,
+    "impostor_rejected": 2996
+  }
+}

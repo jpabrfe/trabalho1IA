@@ -29,8 +29,12 @@ RES = Path("experiments/results")
 DIM = 512
 
 
-def load(name):
-    ep, fp = EMB / f"{name}_embeddings.npy", EMB / f"{name}_files.txt"
+def load(name, split="val"):
+    suffix = "_test" if split == "test" else ""
+    ep, fp = EMB / f"{name}{suffix}_embeddings.npy", EMB / f"{name}{suffix}_files.txt"
+    if not ep.exists() or not fp.exists():
+        # Fallback para o nome base caso utilize validação
+        ep, fp = EMB / f"{name}_embeddings.npy", EMB / f"{name}_files.txt"
     if not ep.exists() or not fp.exists():
         sys.exit(f"[ERRO] Faltam {ep} ou {fp}. Rode a extração antes.")
     emb = np.load(ep)
@@ -38,7 +42,6 @@ def load(name):
     if len(files) != len(emb):
         sys.exit(f"[ERRO] {len(files)} nomes de arquivo, mas {len(emb)} embeddings.")
     return {f.replace("\\", "/"): emb[i] for i, f in enumerate(files)}
-
 
 def get(by, lst, split, strict=True):
     """Matriz (len(lst), 512). Arquivo ausente na extração = erro (não vira NaN em silêncio)."""
@@ -66,7 +69,7 @@ def main():
         if out_json.exists() and not a.force:
             sys.exit(f"[ERRO] {out_json} já existe. O teste deve ser avaliado uma única vez.")
 
-    by = load(a.name)
+    by = load(a.name, a.split)
     s = json.loads(SPLIT.read_text(encoding="utf-8"))
 
     # --- protótipos (somente enroll) ---
