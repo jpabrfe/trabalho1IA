@@ -1,0 +1,45 @@
+{
+  "experimento": "facenet_cosseno_val",
+  "config": {
+    "modelo": "facenet",
+    "metrica": "cosseno",
+    "k": 50,
+    "n_cadastro": 5,
+    "pesos": "pré-treinados, sem fine-tuning"
+  },
+  "ambiente": {
+    "data": "2026-10-23T18:59:35",
+    "python": "3.13.3",
+    "so": "Windows-11-10.0.26200-SP0",
+    "cpu": "Intel64 Family 6 Model 186 Stepping 3, GenuineIntel",
+    "seed": 42,
+    "pacotes": {
+      "torch": "2.14.1+cpu",
+      "torchvision": "0.29.1+cpu",
+      "numpy": "2.5.2",
+      "scikit-learn": "1.9.1",
+      "facenet-pytorch": "2.6.0",
+      "insightface": "2.1",
+      "onnxruntime": "1.31.0",
+      "opencv-python": "5.0.0.93",
+      "matplotlib": "3.11.2",
+      "pillow": "12.3.0"
+    },
+    "cuda_disponivel": false,
+    "git_commit": "70f199c"
+  },
+  "resultados": {
+    "eer_val": 0.040249266202367434,
+    "validacao": {
+      "threshold": 0.5886929563295779,
+      "accuracy": 0.9596401028277635,
+      "f1_macro": 0.8865789971626687,
+      "f1_ponderado": 0.96485577466276,
+      "far": 0.040012702445220705,
+      "frr": 0.04048582995951417,
+      "id_errada": 0.001349527665317139,
+      "rank1": 0.9689608636977058,
+      "roc_auc": 0.9839620915150322
+    }
+  }
+}

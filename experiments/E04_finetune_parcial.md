@@ -12,8 +12,21 @@ validação em relação ao baseline pré-treinado (E01, EER 0,0402).
 - Otimizador: AdamW, lr 1e-4 (cabeça 1e-3), 15 épocas
 - Avaliação: mesma do E01 (validação; teste só no modelo final)
 
-## Resultado
-(preencher depois de rodar)
+## Resultado (validação)
+| Modelo                  | EER    | Accuracy | F1 macro | Rank-1 | ROC-AUC |
+|-------------------------|--------|----------|----------|--------|---------|
+| E01 FaceNet baseline    | 0,0402 | 0,960    | 0,887    | 0,969  | 0,984   |
+| E04 fine-tuning parcial | 0,0432 | 0,957    | 0,867    | 0,969  | 0,979   |
+
+Threshold escolhido na validação: 0,492 (cosseno).
 
 ## Interpretação
-(preencher depois de rodar)
+A hipótese não foi confirmada: o fine-tuning parcial não reduziu o EER; ele
+ficou 0,3 ponto percentual acima do baseline. Essa diferença está dentro da
+incerteza da validação (741 probes conhecidas), então a conclusão correta é que
+não houve melhora detectável, e não que o fine-tuning piorou. O rank-1 não mudou.
+Possíveis causas, não testadas: os pesos pré-treinados já foram treinados em
+uma base muito maior que as 5.334 imagens de treino usadas aqui; a cabeça
+ArcFace, inicializada do zero com 1.141 classes, pode ter empurrado as camadas
+liberadas para separar essas identidades específicas; e epochs e learning rate
+não foram ajustados.
