@@ -28,6 +28,8 @@ Avaliação final (teste do LFW, uma única vez, E02): accuracy 0,970, F1 0,905,
 FAR = FRR = 0,030.
 Avaliação com fotos privadas (agregada, média dos participantes): (preencher).
 
+Análise completa em [docs/ANALISE.md](docs/ANALISE.md).
+
 ## Datasets
 
 **LFW (Labeled Faces in the Wild), versão funneled, 13.233 imagens.**
