@@ -1,7 +1,7 @@
 # ADR-001 - Modelos de reconhecimento facial
 
 - Status: aceito
-- Data: 23/10/2026
+- Data: 24/10/2026
 - Consulta às fontes oficiais (código e modelos): 21/10/2026
 
 ## Contexto
@@ -31,38 +31,51 @@ Comparar modelos pré-treinados, com e sem fine-tuning.
 ## Critério de escolha
 Menor EER na validação (LFW, 50 conhecidas e impostoras disjuntas), por ser a
 métrica própria do problema de conjunto aberto e não depender de um threshold
-fixo. Desempate: F1 macro. O conjunto de teste não participou da escolha.
+fixo. Desempate: F1 macro. Todos os modelos recebem a mesma entrada (faces
+recortadas pelo MTCNN, em data/lfw/aligned). O conjunto de teste não participou
+da escolha.
 
 ## Resultados na validação
-| Modelo  | EER    | Accuracy | F1 macro | Rank-1 | ROC-AUC |
-|---------|--------|----------|----------|--------|---------|
-| FaceNet | 0,0402 | 0,960    | 0,887    | 0,969  | 0,984   |
-| ArcFace | 0,0486 | 0,951    | 0,859    | 0,977  | 0,986   |
+| Modelo                       | EER    | Accuracy | F1 macro | Rank-1 | ROC-AUC |
+|------------------------------|--------|----------|----------|--------|---------|
+| E01 FaceNet pré-treinado     | 0,0402 | 0,960    | 0,887    | 0,969  | 0,984   |
+| E02 ArcFace pré-treinado     | 0,0365 | 0,964    | 0,871    | 0,966  | 0,984   |
+| E04 FaceNet, ajuste parcial  | 0,0432 | 0,957    | 0,867    | 0,969  | 0,979   |
+| E05 FaceNet, ajuste completo | 0,0404 | 0,960    | 0,876    | 0,969  | 0,977   |
+
+Variante do E02 com as imagens originais do LFW, sem recorte (E02a): EER 0,0486,
+accuracy 0,951, F1 macro 0,859, rank-1 0,977, ROC-AUC 0,986. Não entra na
+comparação entre modelos, porque a entrada é diferente; serve para mostrar o
+efeito do pré-processamento.
 
 ## Decisão
-Adotar o FaceNet (InceptionResnetV1, pesos pré-treinados no VGGFace2) como
-modelo base e ponto de partida do fine-tuning, pelas razões:
-1. Menor EER, maior accuracy e maior F1 macro na validação.
-2. Está em PyTorch, o que permite fine-tuning parcial e completo. O ArcFace
-   usado (buffalo_l) é distribuído em ONNX e não pode ser ajustado diretamente
-   neste projeto.
+Adotar o ArcFace pré-treinado (InsightFace buffalo_l), sem fine-tuning, como
+modelo final, por ter o menor EER na validação.
+
+O FaceNet foi o modelo-base dos experimentos de fine-tuning porque está em
+PyTorch; o buffalo_l é distribuído em ONNX e não pode ser ajustado diretamente
+neste projeto. O fine-tuning parcial (E04) e o completo (E05), com ArcFace loss
+e só com dados do LFW, não superaram o FaceNet pré-treinado (E01) na validação.
 
 ## Implicações
 - Trabalho acadêmico e não comercial: compatível com as licenças declaradas.
 - Modelos derivados de fine-tuning do buffalo_l herdariam a restrição não comercial.
 - Checkpoints treinados com dados privados são privados (regra do enunciado):
-  nunca vão ao GitHub, independentemente da licença.
+  nunca vão ao GitHub, independentemente da licença. Os checkpoints deste
+  projeto foram treinados só com o LFW e, mesmo assim, não são versionados.
 - Nenhum peso pré-treinado é copiado para o repositório.
 
 ## Ressalvas
-- A diferença de EER entre os modelos é pequena (0,8 ponto percentual) frente à
-  incerteza de uma validação com 741 probes conhecidas; o ArcFace é melhor em
-  rank-1 e AUC.
-- O ArcFace recebeu o recorte do MTCNN redimensionado, e não o alinhamento por
-  cinco pontos de referência que ele espera, o que pode ter prejudicado o resultado.
+- A diferença de EER entre ArcFace e FaceNet (0,37 ponto percentual) é pequena
+  frente à incerteza de uma validação com 741 probes conhecidas; o FaceNet é
+  melhor em F1 macro e em rank-1.
+- O ArcFace espera alinhamento por cinco pontos de referência; aqui recebeu o
+  recorte do MTCNN redimensionado para 112x112. Com as imagens originais, sem
+  recorte, o EER foi 0,0486: o pré-processamento altera o resultado.
 - Os pesos pré-treinados vêm de bases de rostos coletados na web; pode haver
   identidades em comum com o LFW. Isso não foi verificado.
-- A decisão final do projeto compara também as versões com fine-tuning (E04 e E05).
+- Os baselines E01 e E02a foram avaliados também no conjunto de teste antes
+  da escolha final; a decisão se baseou apenas na validação.
 
 ## Pendências
 - Ler os termos de uso do VGGFace2 e do WebFace260M (WebFace600K) nos endereços
