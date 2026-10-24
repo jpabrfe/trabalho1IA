@@ -1,0 +1,56 @@
+{
+  "experimento": "arcface_cosseno_TESTE",
+  "config": {
+    "modelo": "arcface",
+    "metrica": "cosseno",
+    "k": 50,
+    "n_cadastro": 5,
+    "pesos": "pré-treinados, sem fine-tuning"
+  },
+  "ambiente": {
+    "data": "2026-10-24T01:57:24",
+    "python": "3.13.3",
+    "so": "Windows-11-10.0.26200-SP0",
+    "cpu": "Intel64 Family 6 Model 186 Stepping 3, GenuineIntel",
+    "seed": 42,
+    "pacotes": {
+      "torch": "2.14.1+cpu",
+      "torchvision": "0.29.1+cpu",
+      "numpy": "2.5.2",
+      "scikit-learn": "1.9.1",
+      "facenet-pytorch": "2.6.0",
+      "insightface": "2.1",
+      "onnxruntime": "1.31.0",
+      "opencv-python": "5.0.0.93",
+      "matplotlib": "3.11.2",
+      "pillow": "12.3.0"
+    },
+    "cuda_disponivel": false,
+    "git_commit": "421124b"
+  },
+  "resultados": {
+    "eer_val": 0.03647838848654479,
+    "validacao": {
+      "threshold": 0.2678577473683117,
+      "accuracy": 0.9634961439588688,
+      "f1_macro": 0.8706902847851311,
+      "f1_ponderado": 0.965979997271103,
+      "far": 0.03651953000952683,
+      "frr": 0.03643724696356275,
+      "id_errada": 0.0,
+      "rank1": 0.9662618083670715,
+      "roc_auc": 0.9841849414311851
+    },
+    "teste": {
+      "threshold": 0.2678577473683117,
+      "accuracy": 0.9696727853152434,
+      "f1_macro": 0.9053503970206416,
+      "f1_ponderado": 0.9715043469008497,
+      "far": 0.03005008347245409,
+      "frr": 0.030104712041884817,
+      "id_errada": 0.0013089005235602095,
+      "rank1": 0.9712041884816754,
+      "roc_auc": 0.9882465540298403
+    }
+  }
+}
