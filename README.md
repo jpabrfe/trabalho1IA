@@ -37,8 +37,9 @@ Análise completa em [docs/ANALISE.md](docs/ANALISE.md).
   Artigo: Huang, Ramesh, Berg e Learned-Miller, 2007.
 - Obtenção: espelho usado pelo scikit-learn (`fetch_lfw_people`), por
   `python -m src.data.download_lfw`. O dataset não é versionado.
-- Licença/termos: não localizados, pois a página oficial estava fora do ar;
-  a verificar antes da entrega. Detalhes em [data/README.md](data/README.md).
+- Licença/termos: formais não localizados (página oficial inacessível em
+  25/10/2026); descrito como benchmark de pesquisa não comercial. Uso aqui:
+  acadêmico, sem redistribuição. Detalhes em [data/README.md](data/README.md).
 - Finalidade e uso: pesquisa em reconhecimento facial. Aqui serve para treino do
   fine-tuning, validação, teste e como impostoras (desconhecidas), em grupos de
   identidades disjuntos (seed 42).
