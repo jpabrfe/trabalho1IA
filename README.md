@@ -2,6 +2,8 @@
 
 Trabalho de Inteligência Artificial (UFMS): identificação facial em conjunto aberto.
 
+Vídeo da Parte 1: https://drive.google.com/file/d/1wuz9tYekn-P8dkUVGbBB5BDIY9Cgrut_/view?usp=sharing
+
 ## Modelo escolhido
 
 **ArcFace pré-treinado (InsightFace buffalo_l), sem fine-tuning, com cosseno e
@@ -126,3 +128,7 @@ python -m src.eval.evaluate_privado --modelo arcface --final
 ```
 
 Seeds, versões e hardware de cada execução ficam em `experiments/runs/`.
+
+Os arquivos de `experiments/results/` (E01 e E02a) foram gerados pelos scripts
+`src/eval/extract_embeddings.py` e `src/eval/evaluate.py`; os de `experiments/runs/`
+(E01, E02, E03, E04, E05), por `src/eval/run_baseline.py`.

@@ -8,6 +8,24 @@
 Identificação facial em conjunto aberto (K pessoas conhecidas + rejeição).
 Comparar modelos pré-treinados, com e sem fine-tuning.
 
+## Por que estes dois candidatos
+FaceNet e ArcFace foram escolhidos por critérios práticos e técnicos:
+1. São referências consolidadas na literatura de reconhecimento facial por
+   embeddings (FaceNet: Schroff et al., 2015; ArcFace: Deng et al., 2019), o que
+   torna os resultados comparáveis com outros trabalhos.
+2. Têm pesos pré-treinados públicos, com fonte e licença identificáveis, e rodam
+   em CPU, o que cabia no prazo e no hardware disponíveis.
+3. Os dois produzem embeddings de 512 dimensões comparáveis por cosseno, então o
+   mesmo pipeline de protótipos, threshold e métricas serve para ambos, e a
+   comparação é justa.
+4. Representam abordagens diferentes: o FaceNet (InceptionResnetV1, pesos
+   VGGFace2) está em PyTorch e permite fine-tuning; o ArcFace (ResNet50,
+   buffalo_l) usa uma loss de margem angular e vem em ONNX, sem fine-tuning.
+
+Limitação da escolha: não foram testados MobileFaceNet, ResNets treinadas por
+nós nem Vision Transformers, por falta de tempo. A comparação cobre dois
+candidatos, e não um levantamento amplo de arquiteturas.
+
 ## Candidatos
 
 ### FaceNet - facenet-pytorch (InceptionResnetV1)
@@ -86,5 +104,7 @@ e só com dados do LFW, não superaram o FaceNet pré-treinado (E01) na validaç
   da escolha final; a decisão se baseou apenas na validação.
 
 ## Pendências
-- Ler os termos de uso do VGGFace2 e do WebFace260M (WebFace600K) nos endereços
-  acima e preencher os campos "a verificar".
+- Os termos de uso do VGGFace2 (CC BY-NC 4.0) e do WebFace260M (uso acadêmico e
+  de pesquisa, sem uso comercial) foram verificados. Não foi determinado se essas
+  restrições se estendem aos pesos pré-treinados; recomenda-se confirmar antes de
+  qualquer uso além deste trabalho acadêmico.

@@ -93,9 +93,8 @@ identificação errada é pequeno, e por isso seu pico é estreito e alto.
   com outra pessoa e nenhuma impostora do LFW aceita como participante. Na
   inspeção manual, as 4 rejeitadas de um dos participantes tinham a cabeça virada
   para o lado de forma mais acentuada que nas demais, e uma delas ângulo de baixo
-  para cima. [COMPLETAR: o que o colega observou na foto rejeitada dele.] A causa
-  provável, não testada, é a variação de pose frente a um protótipo formado por
-  poucas fotos de cadastro (5 e 7). Como as rejeições (11%) superam as do LFW
+  para cima.  A causa provável, não testada, é a variação de pose frente a um protótipo
+  formado por poucas fotos de cadastro (5 e 7). Como as rejeições (11%) superam as do LFW
   (cerca de 3%), o limiar calibrado só no LFW parece rigoroso para fotos de celular,
   mas com 45 fotos o intervalo é largo (cerca de 77% a 95% de reconhecimento).
 - **F1 macro menor que o ponderado:** as classes são desbalanceadas (poucas
@@ -137,6 +136,7 @@ identificação errada é pequeno, e por isso seu pico é estreito e alto.
   de minutos a algumas dezenas de minutos. O modelo final dispensa treino. O
   fine-tuning custou GPU e tempo sem trazer ganho; nesta configuração, mais
   complexidade não melhorou o desempenho.
+
 ## 10. Conclusão
 O ArcFace pré-treinado, com recorte MTCNN, protótipos e threshold de cosseno
 escolhido na validação, é a melhor configuração encontrada, com EER 0,030 no
