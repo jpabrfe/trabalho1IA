@@ -14,8 +14,13 @@ Comparar modelos pré-treinados, com e sem fine-tuning.
 - Fonte oficial: https://github.com/timesler/facenet-pytorch
 - Licença do código: MIT
 - Pesos usados: vggface2 (portados de https://github.com/davidsandberg/facenet)
-- Termos do dataset de treino (VGGFace2): a verificar na página oficial do
-  projeto, www.robots.ox.ac.uk/~vgg/data/vgg_face2/
+- Termos do dataset de treino (VGGFace2): licença Creative Commons
+  Atribuição-NãoComercial 4.0 (CC BY-NC 4.0), conforme a página oficial do
+  dataset, lida em 25/10/2026. Uso compatível: trabalho acadêmico, não
+  comercial, sem redistribuição do dataset. Não foi determinado se a licença se
+  estende aos pesos treinados com ele. Referência: Cao, Shen, Xie, Parkhi e
+  Zisserman, "VGGFace2: A dataset for recognising faces across pose and age"
+  (arXiv:1710.08092).
 - Uso: apenas referência; pesos baixados automaticamente, não versionados no Git
 - Versão usada: facenet-pytorch 2.6.0
 
@@ -23,8 +28,11 @@ Comparar modelos pré-treinados, com e sem fine-tuning.
 - Fonte oficial: https://github.com/deepinsight/insightface
 - Licença do código: MIT
 - Licença dos modelos pré-treinados: somente pesquisa não comercial
-- Termos do dataset de treino (WebFace600K, subconjunto do WebFace260M): a
-  verificar na página do benchmark, www.face-benchmark.org
+- Termos do dataset de treino (WebFace600K, subconjunto do WebFace260M): - Termos do dataset de treino (WebFace600K, subconjunto do WebFace260M): os
+  termos de uso do WebFace260M, lidos em 25/10/2026, destinam o dataset
+  exclusivamente a fins acadêmicos, de pesquisa e informativos, e proíbem uso
+  comercial. Uso compatível: trabalho acadêmico, sem redistribuição. Não foi
+  determinado se os termos se estendem aos pesos treinados com ele., www.face-benchmark.org
 - Uso: apenas referência; baixado automaticamente em ~/.insightface, não versionado
 - Versão usada: insightface 2.1
 
