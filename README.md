@@ -26,7 +26,7 @@ Métricas na validação (LFW: 50 conhecidas e impostoras disjuntas). F1 é macr
 
 Avaliação final (teste do LFW, uma única vez, E02): accuracy 0,970, F1 0,905,
 FAR = FRR = 0,030.
-Avaliação com fotos privadas (agregada, média dos participantes): (preencher).
+Avaliação com fotos privadas (agregada, média dos participantes): Avaliação com fotos privadas (agregada, 2 participantes, 45 fotos de teste): 88,9% reconhecidas (40 de 45), 11,1% rejeitadas como desconhecidas, 0% confundidas com outra pessoa e 0% de impostoras do LFW aceitas como participante.
 
 Análise completa em [docs/ANALISE.md](docs/ANALISE.md).
 

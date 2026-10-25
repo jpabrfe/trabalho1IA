@@ -21,9 +21,10 @@ cerca de 1,21 (d = sqrt(2 - 2 cos)), sem diferença de desempenho (E03).
 | Validação (LFW) | 0,0365 | 0,0364 | 0,964 | 0,871 |
 | Teste (LFW, uma única vez) | 0,0301 | 0,0301 | 0,970 | 0,905 |
 
-Na avaliação com fotos privadas (agregada), nenhuma impostora do LFW foi aceita
-e nenhuma foto foi confundida com outra pessoa; a taxa de rejeição indevida foi
-maior que a do LFW (16% em 25 fotos de teste de um participante).
+Na avaliação com fotos privadas (agregada, 2 participantes, 45 fotos de teste),
+88,9% das fotos foram reconhecidas, nenhuma foi confundida com outra pessoa e
+nenhuma impostora do LFW foi aceita; a rejeição indevida (11,1%) foi maior que
+a do LFW (cerca de 3%).
 
 ## Alternativas consideradas
 - Threshold por pessoa: mais flexível, mas exige mais dados por
