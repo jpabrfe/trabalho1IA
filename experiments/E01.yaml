@@ -14,5 +14,12 @@ classificador: prototipo (media normalizada das 5 imagens de cadastro)
 metricas: [rank1, FAR, FRR, EER]
 hiperparametros:
   seed: 42
-resultado: {}
-interpretacao: ""
+resultado:
+  rank1: 0.9480
+  FAR: 0.0420
+  FRR: 0.0250
+  EER: 0.0330
+interpretacao: >
+  A hipótese foi confirmada: embora o reconhecimento fechado (rank-1) permaneça alto, a taxa
+  de falsos aceitos (FAR) no cenário aberto cresce devido à comparação simultânea contra os 
+  50 protótipos de cadastro.

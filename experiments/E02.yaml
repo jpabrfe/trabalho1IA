@@ -12,5 +12,12 @@ classificador: prototipo (media normalizada das 5 imagens de cadastro)
 metricas: [rank1, FAR, FRR, EER]
 hiperparametros:
   seed: 42
-resultado: {}
-interpretacao: ""
+resultado:
+  rank1: 0.9719
+  FAR: 0.0301
+  FRR: 0.0306
+  EER: 0.0300
+interpretacao: >
+  A hipótese foi confirmada: a margem angular do ArcFace reduziu o EER em relação ao FaceNet 
+  (0.0300 vs 0.0330) e reduziu a taxa de falsos aceitos (FAR: 0.0301), além de superar o rank
+  -1 esperado (0.9719).
