@@ -70,8 +70,20 @@ FAR e FRR ficaram em 3,0% cada, ou seja, o ponto de operação generalizou.
 Subir o threshold reduziria os desconhecidos aceitos ao custo de rejeitar mais
 pessoas cadastradas, e baixá-lo faria o contrário; a escolha depende da
 aplicação (ADR-003). As distribuições de similaridade estão em `docs/figures/`.
-[COMPLETAR: comentar o histograma, por exemplo a sobreposição entre conhecidas
-e desconhecidas.]
+O histograma de similaridades na validação (`docs/figures/arcface_cosseno_val.png`)
+mostra três grupos. As pessoas conhecidas identificadas corretamente ficam à
+direita do threshold, concentradas entre 0,5 e 0,8, com pico perto de 0,7. As
+desconhecidas e as conhecidas cuja maior similaridade foi com outra pessoa
+ficam quase todas à esquerda do threshold, concentradas entre 0,1 e 0,2; o
+pico das desconhecidas tem densidade em torno de 10, e o do grupo de conhecidas
+com identificação errada chega a cerca de 50. A separação entre os grupos é
+nítida, o que se reflete no ROC-AUC de 0,984. A sobreposição fica nas caudas
+perto do threshold (0,2679): impostoras com similaridade alta passam como
+conhecidas (FAR) e conhecidas com similaridade baixa são rejeitadas (FRR), o que
+explica os erros de cerca de 3 a 4% em cada lado. Os histogramas são normalizados
+por grupo (densidade), então a altura dos picos mostra o quanto cada grupo se
+concentra, e não quantas amostras ele tem; o grupo de conhecidas com
+identificação errada é pequeno, e por isso seu pico é estreito e alto.
 
 ## 7. Erros encontrados
 - **LFW:** poucas conhecidas confundidas com outra (0,13%); a maior parte dos
