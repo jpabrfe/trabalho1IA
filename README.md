@@ -132,3 +132,9 @@ Seeds, versões e hardware de cada execução ficam em `experiments/runs/`.
 Os arquivos de `experiments/results/` (E01 e E02a) foram gerados pelos scripts
 `src/eval/extract_embeddings.py` e `src/eval/evaluate.py`; os de `experiments/runs/`
 (E01, E02, E03, E04, E05), por `src/eval/run_baseline.py`.
+
+Exclusão de dados: os dados privados de cada participante ficam apenas em
+`FACE_PRIVATE_DIR` (fotos, imagens alinhadas e resultados agregados), sem
+embeddings ou checkpoints gravados em disco; para excluir uma pessoa basta apagar
+essas pastas (instrução no ADR-002). A exclusão por função da aplicação é objeto
+da Parte 2.
