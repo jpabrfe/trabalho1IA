@@ -33,3 +33,4 @@ face_private/
 *.npy
 *.npz
 venv/
+*.log

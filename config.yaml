@@ -1,0 +1,9 @@
+﻿# Parâmetros não sensíveis (ADR-005). Podem ser sobrescritos por variáveis de
+# ambiente (FACE_THRESHOLD, FACE_METRIC, FACE_MIN_CONFIDENCE, FACE_MIN_FACE_PX,
+# FACE_LOG_LEVEL). O threshold só vale para o pipeline da Parte 1:
+# MTCNN (recorte 160x160) + ArcFace buffalo_l + similaridade de cosseno.
+threshold: 0.2679
+metric: cosseno
+min_confidence: 0.9
+min_face_px: 60
+log_level: INFO
