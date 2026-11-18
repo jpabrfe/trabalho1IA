@@ -18,3 +18,9 @@ Embeddings faciais são dados biométricos privados (enunciado, seção 20). Os 
 ## Consequências
 - Excluir os dados de uma pessoa é apagar os arquivos dela em `face_private`.
 - Os resultados privados são reportados só de forma agregada.
+
+## Parte 2 (aplicação)
+Cada pessoa cadastrada fica em uma pasta própria, identificada por uuid, em
+`FACE_PRIVATE_DIR/people/`, com `meta.json` (nome e data) e `embeddings.npy`.
+As fotos não são guardadas. O cadastro é atômico (pasta temporária renomeada ao
+final) e excluir uma pessoa é remover a pasta dela. Os logs registram só o uuid.
