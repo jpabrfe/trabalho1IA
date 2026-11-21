@@ -36,12 +36,22 @@ def _carregar():
     return settings, build_services(settings, MtcnnDetector(), ArcFaceEmbedder())
 
 
+LADO_MAX = 1280
+
+
 def _ler_imagem(arquivo):
     """Decodifica um arquivo enviado pelo navegador para BGR; None se ilegível."""
     dados = np.frombuffer(arquivo.getvalue(), dtype=np.uint8)
     if dados.size == 0:
         return None
-    return cv2.imdecode(dados, cv2.IMREAD_COLOR)
+    imagem = cv2.imdecode(dados, cv2.IMREAD_COLOR)
+    if imagem is None:
+        return None
+    maior = max(imagem.shape[:2])
+    if maior > LADO_MAX:
+        fator = LADO_MAX / maior
+        imagem = cv2.resize(imagem, None, fx=fator, fy=fator, interpolation=cv2.INTER_AREA)
+    return imagem
 
 
 def _sem_acentos(texto):
@@ -126,18 +136,21 @@ def _aba_pessoas(services):
 
     pendente = st.session_state.get("excluir_id")
     if pendente:
-        st.warning("Excluir remove o cadastro e todos os embeddings desta pessoa. "
+        nome = st.session_state.get("excluir_nome", "esta pessoa")
+        st.warning(f"Excluir **{nome}** remove o cadastro e todos os embeddings dela. "
                    "Não há como desfazer.")
         c1, c2 = st.columns(2)
         if c1.button("Confirmar exclusão", type="primary"):
             ok, removida = _chamar(services.pessoas.excluir, pendente)
             st.session_state.pop("excluir_id", None)
+            st.session_state.pop("excluir_nome", None)
             if ok and removida:
                 st.success("Pessoa excluída.")
             elif ok:
                 st.warning("Pessoa não encontrada.")
         if c2.button("Cancelar"):
             st.session_state.pop("excluir_id", None)
+            st.session_state.pop("excluir_nome", None)
             st.rerun()
 
     pessoas = services.pessoas.listar()
@@ -149,8 +162,8 @@ def _aba_pessoas(services):
         col_nome.write(p.nome)
         if col_botao.button("Excluir", key=f"excluir_{p.id}"):
             st.session_state["excluir_id"] = p.id
+            st.session_state["excluir_nome"] = p.nome
             st.rerun()
-
 
 def main():
     st.set_page_config(page_title="Reconhecimento facial")
