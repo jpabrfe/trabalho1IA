@@ -49,4 +49,5 @@ tzdata==2026.5
 urllib3==2.8.0
 wcwidth==0.9.3
 PyYAML==6.0.3
-pytest==<Version: 9.2.0>
+pytest==9.2.0
+streamlit==1.67.0
