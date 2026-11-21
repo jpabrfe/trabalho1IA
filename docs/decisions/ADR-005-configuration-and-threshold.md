@@ -30,3 +30,9 @@ privados não pode estar no código nem no repositório.
 - O threshold só vale para o pipeline descrito acima; trocar detector, recorte ou
   modelo exige recalibrar com dados de validação.
 - Os testes sobrescrevem a configuração com valores controlados.
+- Equivalência verificada com a Parte 1 (21/11/2026): em 50 imagens do LFW
+  sorteadas (seed 42), o embedding gerado pela aplicação (MtcnnDetector e
+  ArcFaceEmbedder, a partir da imagem original) teve similaridade de cosseno
+  entre 0,987 e 0,999 (mediana 0,9945) com o embedding da Parte 1 (calculado
+  sobre os recortes salvos em JPEG). Por isso o threshold de 0,2679 foi mantido.
+  A verificação é feita por `src/eval/check_app_equivalence.py`.
